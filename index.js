@@ -11,3 +11,8 @@ function getComputerChoice(){
         return "Scissor";
     }
 }
+
+function getHumanChoice(){
+    let humanChoice=parseInt(prompt("choose one from below\n1-Rock\n2.Paper\n3.Scissor"))
+    console.log(humanChoice)
+}
