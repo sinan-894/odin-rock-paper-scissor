@@ -1,6 +1,4 @@
 
-let humanScore=0;
-let computerScore=0;
 
 
 function getComputerChoice(){
@@ -40,44 +38,74 @@ function playRound(humanChoice,computerChoice){
         case "ROCK":
             if (computerChoice=='PAPER'){
                 console.log("You lose! Paper beats Rock");
-                computerScore+=1;
+                return -1
             }
             else if(computerChoice=='SCISSOR'){
                 console.log("You win! Rock beats Scissor");
-                humanScore+=1;
+                return 1
             }
             else{
                 console.log("DRAW!");
+                return 0
             }
             break;
         case "PAPER":
             if (computerChoice=='SCISSOR'){
                 console.log("You lose! Scissor beats Paper");
-                computerScore+=1;
+                return -1
+                
             }
             else if(computerChoice=='ROCK'){
                 console.log("You win! Paper beats Rock");
-                humanScore+=1;
+                return 1
             }
             else{
-                console.log("DRAW!");
+                console.log("DRAW!")
+                return 0
             }
             break;
         case "SCISSOR":
             if (computerChoice=='ROCK'){
                 console.log("You lose! Rock beats Scissor");
-                computerScore+=1;
+                return -1;
             }
             else if(computerChoice=='PAPER'){
                 console.log("You win! Scissor beats Paper");
-                humanScore+=1;
+                return 1;
             }
             else{
                 console.log("DRAW!");
+                return 0
             }
             break;
 
 
+    }
+
+}
+
+function playGame(){
+    let humanScore=0;
+    let computerScore=0;
+
+    let humanSelection,computerSelection;
+
+    for(let i=0;i<5;i++){
+        humanSelection=getHumanChoice();
+        computerSelection = getComputerChoice();
+        score=playRound(humanSelection,computerSelection);
+        if (score==1)humanScore+=1;
+        else if(score==-1)computerScore+=1;
+    }
+    console.log(`SCORE IS ${humanScore}-${computerScore}`)
+    if (humanScore>computerScore){
+        console.log("YOU WON!!!!");
+    }
+    else if(computerScore>humanScore){
+        console.log("YOU LOSE:( ,Better luck next time");
+    }
+    else{
+        console.log("DRAW");
     }
 
 }
