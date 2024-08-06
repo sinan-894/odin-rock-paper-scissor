@@ -22,12 +22,12 @@ function getHumanChoice(){
     else if (humanChoice==2){
         return "Paper";
     }
-    else if(humanChoice=3){
+    else if(humanChoice==3){
         return "Scissor";
     }
     else{
         console.log("enter a valid choice");
-        getHumanChoice();
+        return getHumanChoice();
     }
 }
 
@@ -109,3 +109,5 @@ function playGame(){
     }
 
 }
+
+playGame()
