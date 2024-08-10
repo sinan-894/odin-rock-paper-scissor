@@ -37,44 +37,44 @@ function playRound(humanChoice,computerChoice){
     switch(humanChoice){
         case "ROCK":
             if (computerChoice=='PAPER'){
-                console.log("You lose! Paper beats Rock");
+                winnerHeading.textContent="You lose! Paper beats Rock"
                 return -1
             }
             else if(computerChoice=='SCISSOR'){
-                console.log("You win! Rock beats Scissor");
+                winnerHeading.textContent=("You win! Rock beats Scissor");
                 return 1
             }
             else{
-                console.log("DRAW!");
+                winnerHeading.textContent=("DRAW!");
                 return 0
             }
             break;
         case "PAPER":
             if (computerChoice=='SCISSOR'){
-                console.log("You lose! Scissor beats Paper");
+                winnerHeading.textContent=("You lose! Scissor beats Paper");
                 return -1
                 
             }
             else if(computerChoice=='ROCK'){
-                console.log("You win! Paper beats Rock");
+                winnerHeading.textContent=("You win! Paper beats Rock");
                 return 1
             }
             else{
-                console.log("DRAW!")
+                winnerHeading.textContent=("DRAW!")
                 return 0
             }
             break;
         case "SCISSOR":
             if (computerChoice=='ROCK'){
-                console.log("You lose! Rock beats Scissor");
+                winnerHeading.textContent=("You lose! Rock beats Scissor");
                 return -1;
             }
             else if(computerChoice=='PAPER'){
-                console.log("You win! Scissor beats Paper");
+                winnerHeading.textContent=("You win! Scissor beats Paper");
                 return 1;
             }
             else{
-                console.log("DRAW!");
+                winnerHeading.textContent=("DRAW!");
                 return 0
             }
             break;
@@ -83,31 +83,59 @@ function playRound(humanChoice,computerChoice){
     }
 
 }
+function calcScore(result){
+    if (result===1) humanScore++;
+    else if (result===-1) computerScore++;
 
-function playGame(){
-    let humanScore=0;
-    let computerScore=0;
+    numberOfGamesPlayed++;
+}
 
-    let humanSelection,computerSelection;
 
-    for(let i=0;i<5;i++){
-        humanSelection=getHumanChoice();
-        computerSelection = getComputerChoice();
-        score=playRound(humanSelection,computerSelection);
-        if (score==1)humanScore+=1;
-        else if(score==-1)computerScore+=1;
-    }
-    console.log(`SCORE IS ${humanScore}-${computerScore}`)
-    if (humanScore>computerScore){
-        console.log("YOU WON!!!!");
-    }
-    else if(computerScore>humanScore){
-        console.log("YOU LOSE:( ,Better luck next time");
-    }
-    else{
-        console.log("DRAW");
+function displayScore(){
+    scoreBoardHuman.textContent = `Human : ${humanScore}`;
+    scoreBoardComputer.textContent = `Computer : ${computerScore}`;
+    if (numberOfGamesPlayed===5){
+        const resultHeading = document.createElement('h1');
+        resultHeading.textContent = humanScore>=computerScore?'YOU WIN':"YOU LOSE";
+        winnerHeading.textContent = " ";
+        resultDiv.appendChild(resultHeading);
+
+
+        
     }
 
 }
+function playGame(choice){
+    if (numberOfGamesPlayed<5){
+        const humanSelection=choice;
+        const computerSelection = getComputerChoice();
+        const result=playRound(humanSelection,computerSelection);
+        calcScore(result);
+        displayScore();
 
-playGame()
+    }
+}
+
+
+let humanScore = 0;
+let computerScore = 0;
+let numberOfGamesPlayed = 0;
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissor = document.querySelector('#scissor');
+const resultDiv = document.querySelector('div.result');
+const winnerHeading = document.querySelector('#game-result');
+const scoreBoardHuman = document.querySelector('#human');
+const scoreBoardComputer = document.querySelector('#computer');
+rock.addEventListener("click",()=>{
+    playGame('rock');
+});
+
+paper.addEventListener("click",()=>{
+    playGame('paper');
+
+});
+
+scissor.addEventListener("click",()=>{
+    playGame('scissor');
+})
